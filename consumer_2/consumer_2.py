@@ -1,4 +1,4 @@
-# consumer_2.py - Corrected Version
+# consumer_2.py 
 import json
 from kafka import KafkaConsumer
 import csv
@@ -9,18 +9,8 @@ KAFKA_BROKER_IP = '172.24.174.69:9092' # Use the IP you successfully pinged
 TOPICS = ['topic-net', 'topic-disk']
 # =================================
 
-# --- File Setup ---
 NET_CSV_FILE = 'net_data.csv'
 DISK_CSV_FILE = 'disk_data.csv'
-
-# Write headers to the CSV files
-with open(NET_CSV_FILE, 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(['ts', 'server_id', 'net_in', 'net_out'])
-
-with open(DISK_CSV_FILE, 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(['ts', 'server_id', 'disk_io'])
 
 # --- Initialize Kafka Consumer ---
 print(f"Initializing Consumer 2 to listen on topics: {TOPICS}")
@@ -33,10 +23,11 @@ consumer = KafkaConsumer(
 )
 
 # --- Consume and Store Data ---
-print("CSV files created. Waiting for messages... (Press Ctrl+C to stop)")
+# We open the files in 'w' (write) mode, which creates/empties them
+print("File handles opened. Waiting for messages... (Press Ctrl+C to stop)")
 
 try:
-    with open(NET_CSV_FILE, 'a', newline='') as f_net, open(DISK_CSV_FILE, 'a', newline='') as f_disk:
+    with open(NET_CSV_FILE, 'w', newline='') as f_net, open(DISK_CSV_FILE, 'w', newline='') as f_disk:
         net_writer = csv.writer(f_net)
         disk_writer = csv.writer(f_disk)
 
@@ -49,7 +40,6 @@ try:
                 f_net.flush() # Ensure data is written immediately
             
             elif message.topic == 'topic-disk':
-                # --- THIS IS THE CORRECTED LINE ---
                 disk_writer.writerow([data['ts'], data['server_id'], data['disk_io']])
                 f_disk.flush()
 
