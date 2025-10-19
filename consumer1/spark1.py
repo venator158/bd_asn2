@@ -140,7 +140,4 @@ output_filename = f"team_{TEAM_NO}_CPU_MEM.csv"
 final_output.drop("window_start_ts").toPandas().to_csv(output_filename, index=False, header=True)
 
 print(f"✅ Spark Job finished. Alerts saved to '{output_filename}'")
-print(f"   Start time: {start_time}")
-print(f"   End time: {max_ts}")
-print(f"   Total windows per server: {len(window_starts)}")
 spark.stop()
