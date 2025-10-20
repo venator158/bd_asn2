@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, avg, when, date_format, min as spark_min, max as spark_max, coalesce, round
-from pyspark.sql.types import StructType, StructField, StringType, DoubleType, TimestampType
+from pyspark.sql.types import StructType, StructField, StringType, DoubleType, FloatType, TimestampType
 from datetime import datetime, timedelta
 from pyspark.sql import Row
 
@@ -28,6 +28,10 @@ mem_schema = StructType([
 
 cpu_df = spark.read.csv("cpu_data.csv", header=True, schema=cpu_schema)
 mem_df = spark.read.csv("mem_data.csv", header=True, schema=mem_schema)
+
+# Cast cpu_pct and mem_pct from double to float with 2 decimal precision
+cpu_df = cpu_df.withColumn("cpu_pct", round(col("cpu_pct").cast(FloatType()), 2))
+mem_df = mem_df.withColumn("mem_pct", round(col("mem_pct").cast(FloatType()), 2))
 
 
 combined_df = cpu_df.join(mem_df, ["ts", "server_id"])
