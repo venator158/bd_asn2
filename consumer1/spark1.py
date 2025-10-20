@@ -16,13 +16,13 @@ TEAM_NO = "17"
 cpu_schema = StructType([
     StructField("ts", TimestampType(), True),
     StructField("server_id", StringType(), True),
-    StructField("cpu_pct", DoubleType(), True)
+    StructField("cpu_pct", FloatType(), True)
 ])
 
 mem_schema = StructType([
     StructField("ts", TimestampType(), True),
     StructField("server_id", StringType(), True),
-    StructField("mem_pct", DoubleType(), True)
+    StructField("mem_pct", FloatType(), True)
 ])
 
 
