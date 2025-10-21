@@ -1,0 +1,26 @@
+# TEAM_17 VIVEK TUTIKA PES2UG23CS707
+KAFKA BROKER COMMANDS
+
+#Starting Zookeeper
+sudo /opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties
+
+#Starting Kafka Broker
+sudo /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+
+#Creating 4 Kafka Topics
+sudo /opt/kafka/bin/kafka-topics.sh --create --topic topic-cpu --bootstrap-server 172.24.174.69:9092 --partitions 3 --replication-factor 1
+sudo /opt/kafka/bin/kafka-topics.sh --create --topic topic-mem --bootstrap-server 172.24.174.69:9092 --partitions 3 --replication-factor 1
+sudo /opt/kafka/bin/kafka-topics.sh --create --topic topic-net --bootstrap-server 172.24.174.69:9092 --partitions 3 --replication-factor 1
+sudo /opt/kafka/bin/kafka-topics.sh --create --topic topic-disk --bootstrap-server 172.24.174.69:9092 --partitions 3 --replication-factor 1
+
+#to check existence of topics
+sudo /opt/kafka/bin/kafka-topics.sh --list --bootstrap-server 172.24.174.69:9092
+
+#describing topics
+sudo /opt/kafka/bin/kafka-topics.sh --describe --topic topic-cpu --bootstrap-server 172.24.174.69:9092
+
+
+
+#Stop zookeeper and kafka
+sudo /opt/kafka/bin/kafka-server-stop.sh
+sudo /opt/kafka/bin/zookeeper-server-stop.sh
