@@ -8,7 +8,7 @@ import os
 
 NET_CSV_FILE = 'net_data.csv'
 DISK_CSV_FILE = 'disk_data.csv'
-OUTPUT_FILE = 'team_17_NET_DISK_final.csv'
+OUTPUT_FILE = 'team_17_NET_DISK.csv'
 
 NET_IN_THRESHOLD = 5534.73
 DISK_IO_THRESHOLD = 1737.83
