@@ -26,8 +26,8 @@ mem_schema = StructType([
 ])
 
 
-cpu_df = spark.read.csv("cpu_data.csv", header=True, schema=cpu_schema)
-mem_df = spark.read.csv("mem_data.csv", header=True, schema=mem_schema)
+cpu_df = spark.read.csv("cpu_data.csv", header=False, schema=cpu_schema)
+mem_df = spark.read.csv("mem_data.csv", header=False, schema=mem_schema)
 
 # Cast cpu_pct and mem_pct from double to float with 2 decimal precision
 cpu_df = cpu_df.withColumn("cpu_pct", round(col("cpu_pct").cast(FloatType()), 2))
